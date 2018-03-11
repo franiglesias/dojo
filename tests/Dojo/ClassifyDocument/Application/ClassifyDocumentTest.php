@@ -165,4 +165,52 @@ class ClassifyDocumentTest extends TestCase
         $this->assertEquals('5C', $group);
     }
 
+    public function testSubjectIstheFifthFolderLevel()
+    {
+        $classifyDocumentRequest = new ClassifyDocumentRequest(
+            self::DEFAULT_STUDENT_ID,
+            self::DEFAULT_SUBJECT,
+            self::DEFAULT_TYPE,
+            self::DEFAULT_FILE,
+            new DateTime(self::DEFAULT_UPLOAD_DATE)
+        );
+
+        $route = $this->classifyDocumentService->execute($classifyDocumentRequest);
+
+        [, , , ,$subject] = explode('/', $route);
+        $this->assertEquals('matemáticas', $subject);
+    }
+
+    public function testStudentIdIstheSixthFolderLevel()
+    {
+        $classifyDocumentRequest = new ClassifyDocumentRequest(
+            self::DEFAULT_STUDENT_ID,
+            self::DEFAULT_SUBJECT,
+            self::DEFAULT_TYPE,
+            self::DEFAULT_FILE,
+            new DateTime(self::DEFAULT_UPLOAD_DATE)
+        );
+
+        $route = $this->classifyDocumentService->execute($classifyDocumentRequest);
+
+        [, , , , , $studentId] = explode('/', $route);
+        $this->assertEquals(self::DEFAULT_STUDENT_ID, $studentId);
+    }
+
+    public function testFileNameIstheSeventhFolderLevelAndHasTimeStamp()
+    {
+        $classifyDocumentRequest = new ClassifyDocumentRequest(
+            self::DEFAULT_STUDENT_ID,
+            self::DEFAULT_SUBJECT,
+            self::DEFAULT_TYPE,
+            self::DEFAULT_FILE,
+            new DateTime(self::DEFAULT_UPLOAD_DATE)
+        );
+
+        $route = $this->classifyDocumentService->execute($classifyDocumentRequest);
+
+        [, , , , , , $fileName] = explode('/', $route);
+        $this->assertEquals('2018-03-12-deberes.pdf', $fileName);
+    }
+
 }

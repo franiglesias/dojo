@@ -39,12 +39,31 @@ class ClassifyDocument
             $classifyDocumentRequest->studentId()
         );
 
+        $fileName = $this->computeNewFileName($classifyDocumentRequest);
+
         $route = [
             $schoolYear,
             $student->Stage(),
             $student->Level(),
-            $student->Group()
+            $student->Group(),
+            strtolower($classifyDocumentRequest->subject()),
+            $classifyDocumentRequest->studentId(),
+            $fileName
         ];
         return implode(DIRECTORY_SEPARATOR, $route);
+    }
+
+    public function computeNewFileName(ClassifyDocumentRequest $classifyDocumentRequest) : string
+    {
+        $timeStamp = $classifyDocumentRequest->dateTime()->format('Y-m-d');
+
+        $extension = substr(strrchr($classifyDocumentRequest->path(), '.'), 1);
+
+        return sprintf(
+            '%s-%s.%s',
+            $timeStamp,
+            $classifyDocumentRequest->type(),
+            $extension
+        );
     }
 }

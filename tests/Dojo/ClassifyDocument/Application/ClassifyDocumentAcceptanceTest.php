@@ -57,7 +57,7 @@ class ClassifyDocumentAcceptanceTest extends TestCase
             new DateTime(self::DEFAULT_UPLOAD_DATE)
         );
         $route = $this->classifyDocumentService->execute($classifyDocumentRequest);
-        $expected = '2017-2018/primaria/5/5C/matematicas/5433/2018-03-12-deberes.pdf';
+        $expected = '2017-2018/primaria/5/5C/matemáticas/5433/2018-03-12-deberes.pdf';
         $this->assertEquals($expected, $route);
     }
 }
