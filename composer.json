@@ -24,5 +24,8 @@
   },
   "config": {
     "bin-dir": "bin"
+  },
+  "require": {
+    "monolog/monolog": "^1.23"
   }
 }
