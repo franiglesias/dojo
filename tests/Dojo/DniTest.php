@@ -69,4 +69,10 @@ class DniTest extends TestCase
         $dni = new Dni('00000002W');
         $this->assertEquals('00000002W', (string) $dni);
     }
+
+    public function testShouldConstructValidNIEStartingWithX() : void
+    {
+        $dni = new Dni('Y0000000Z');
+        $this->assertEquals('Y0000000Z', (string) $dni);
+    }
 }
