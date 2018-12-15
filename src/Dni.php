@@ -19,6 +19,7 @@ class Dni
 
     public function __construct(string $dni)
     {
+        $dni = strtoupper($dni);
         $this->checkIsValidDni($dni);
 
         $mod = $this->calculateModulus($dni);
